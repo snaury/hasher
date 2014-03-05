@@ -5,14 +5,14 @@ if(MSVC)
     # Workaround for Visual Studio 2012
     add_definitions(-D_VARIADIC_MAX=10)
 endif(MSVC)
-if(UNIX)
+if(MINGW OR UNIX)
     add_definitions(-std=c++11 -Wall -Wno-deprecated -pthread)
 endif()
 
 #
 # Find required boost libraries
 #
-if(MSVC)
+if(WIN32)
     set(Boost_USE_STATIC_LIBS ON)
 endif()
 find_package(Boost REQUIRED COMPONENTS system thread timer chrono)
@@ -35,7 +35,9 @@ link_directories(${Boost_LIBRARY_DIR})
 #
 # Crypto++ files
 #
-if(WIN32)
+if(MSVC)
+    # It's easier to build a part of Crypto++ ourselves
+    # So it's possible to just unpack sources into ext/cryptopp
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ext)
     set(CRYPTOPP_SRC_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/ext/cryptopp/cryptlib.cpp

@@ -1,3 +1,4 @@
+#include <system_error>
 #include <memory>
 #include <list>
 #include <boost/format.hpp>
@@ -267,7 +268,8 @@ int main(int argc, char** argv)
 
     iofile fd(filename, O_RDONLY | O_BINARY);
     if (!fd) {
-      std::cout << " error opening file!" << std::endl;
+      std::error_code ec(errno, std::system_category());
+      std::cout << " error opening file: " << ec.message() << std::endl;
       errors = true;
       continue;
     }
@@ -295,7 +297,8 @@ int main(int argc, char** argv)
       if (nbytes == 0)
         break;
       if (nbytes < 0) {
-        std::cout << " error reading file!" << std::endl;
+        std::error_code ec(errno, std::system_category());
+        std::cout << " error reading file: " << ec.message() << std::endl;
         errors = true;
         ok = false;
         break;

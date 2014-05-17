@@ -91,11 +91,8 @@ public:
 
   void push(const T& value) {
     boost::unique_lock<boost::mutex> lock(m_mutex);
-    bool was_empty = m_queue.empty();
     m_queue.push_back(value);
-    if (was_empty) {
-      m_not_empty.notify_one();
-    }
+    m_not_empty.notify_one();
   }
 
   bool pop(T& value) {

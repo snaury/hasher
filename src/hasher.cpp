@@ -1,4 +1,5 @@
 #include <system_error>
+#include <iostream>
 #include <memory>
 #include <list>
 #include <boost/format.hpp>
@@ -277,7 +278,7 @@ int main(int argc, char** argv)
     }
 
     std::vector<hash_thread_base::ptr> hash_threads;
-    hash_threads.push_back(boost::make_shared< hash_thread<CryptoPP::MD5> >("md5", buffers));
+    hash_threads.push_back(boost::make_shared< hash_thread<CryptoPP::Weak::MD5> >("md5", buffers));
     hash_threads.push_back(boost::make_shared< hash_thread<CryptoPP::SHA1> >("sha1", buffers));
     hash_threads.push_back(boost::make_shared< hash_thread<CryptoPP::SHA256> >("sha256", buffers));
     hash_threads.push_back(boost::make_shared< hash_thread<CryptoPP::SHA512> >("sha512", buffers));

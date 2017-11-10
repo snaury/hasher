@@ -1,6 +1,8 @@
 project(hasher C CXX)
 cmake_minimum_required(VERSION 2.8)
 
+add_definitions(-DCRYPTOPP_ENABLE_NAMESPACE_WEAK=1)
+
 if(MSVC)
     # Workaround for Visual Studio 2012
     add_definitions(-D_VARIADIC_MAX=10)

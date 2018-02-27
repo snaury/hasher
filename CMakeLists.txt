@@ -14,9 +14,7 @@ endif()
 #
 # Find required boost libraries
 #
-if(WIN32)
-    set(Boost_USE_STATIC_LIBS ON)
-endif()
+set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost REQUIRED COMPONENTS system thread timer chrono)
 
 #
@@ -56,7 +54,8 @@ if(MSVC)
         ${CMAKE_CURRENT_SOURCE_DIR}/ext/cryptopp/sha.cpp
     )
 else()
-    set(CRYPTOPP_LIB_FILES cryptopp)
+    set(CMAKE_FIND_LIBRARY_SUFFIXES .a)
+    find_library(CRYPTOPP_LIB_FILES cryptopp)
 endif()
 
 #
